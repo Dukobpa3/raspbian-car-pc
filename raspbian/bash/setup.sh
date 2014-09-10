@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 #$(tput setaf 1) - Red - Warning
 #$(tput setaf 2) - Green - ??
 #$(tput setaf 3) - Yellow - Important info
@@ -9,46 +8,60 @@
 #$(tput setaf 6) - Cyan - Header
 #$(tput setaf 7) - White - Info
 
-RETVAL = 0
+
+# Absolute path to this script
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in
+SCRIPTPATH=$(dirname "$SCRIPT")
+
+DIRNAME="$( dirname "$0" )"
+cd "${DIRNAME}"
+
+declare RETOK = 0
+declare RETERR = 1
+declare WIFI_TYPE
 
 setupWiFiAP() {
     echo "$(tput setaf 6)[+] Setup Access Point... $(tput sgr 0)"
-    . ./lan_ap.sh
-    return $RETVAL
+    source ${DIRNAME}/lan_ap.sh
+    return ${RETOK}
 }
 
 setupWiFiClient() {
     echo "$(tput setaf 6)[+] Setup WiFi lan client... $(tput sgr 0)"
-    . ./lan_cl.sh
-    return $RETVAL
+    source ${DIRNAME}/lan_cl.sh
+    return ${RETOK}
 }
 
 setupWiFi() {
     echo "Are you want to configure wifi as AP - 1; as client - 2: "
     input WIFI_TYPE
-    case $WIFI_TYPE in
+    case ${WIFI_TYPE} in
         1)
-        return setupWiFiAP
+        setupWiFiAP
+        return $?
         ;;
         2)
-        return setupWiFiClient
+        setupWiFiClient
+        return $?
         ;;
         *)
         echo "You should enter 1 or 2"
-        return setupWiFi
+        setupWiFi
+        return $?
     esac
-    return 1;
+    return ${RETERR};
 }
 
 setupMediaServer() {
     echo "$(tput setaf 6)[+] Setup mediaserver... $(tput sgr 0)"
-    . ./mediaserver.sh
+    source ${DIRNAME}/mediaserver.sh
 }
 
 
 setupMediaPlayer() {
     echo "$(tput setaf 6)[+] Setup mediaplayer... $(tput sgr 0)"
-    . ./mediaplayer.sh
+    source ${DIRNAME}/mediaplayer.sh
 }
 
 setupWiFi

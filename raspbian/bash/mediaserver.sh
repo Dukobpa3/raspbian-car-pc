@@ -3,7 +3,7 @@
 ##-------------------------------------
 echo "$(tput setaf 7)[+] Configure automount usb sticks... $(tput sgr 0)"
 echo "$(tput setaf 7)[+] Install soft... $(tput sgr 0)"
-apt-get install ntfs-3g usbmount
+apt-get install -y ntfs-3g usbmount
 
 echo "$(tput setaf 7)[+] Add utf-8... $(tput sgr 0)"
 echo "$(tput setaf 1)[+] Replacing config by version from repo!!! $(tput sgr 0)"

@@ -1,7 +1,7 @@
 #!/bin/bash
 ##-------------------------------------
 echo "$(tput setaf 7)[+] Installing AP software... $(tput sgr 0)"
-apt-get install hostapd isc-dhcp-server
+apt-get install -y hostapd isc-dhcp-server
 
 echo "$(tput setaf 7)[+] Configure dhcp -> /etc/dhcp/dhcpd.conf... $(tput sgr 0)"
 ## comment domain names
