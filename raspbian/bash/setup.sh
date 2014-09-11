@@ -26,6 +26,7 @@ function asksure {
 
 function checkFail {
     if [ $1 -eq 1 ]; then
+    echo "$(tput setaf 1)Some went wrong. Exiting... $(tput sgr 0)"
     exit 1
     fi
 
