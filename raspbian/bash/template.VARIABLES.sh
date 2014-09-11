@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# setup modules checker
-SETUP_WIFI=yes
-SETUP_DLNA_SERVER=yes
-SETUP_DLNA_PLAYER=yes
-
 PC_NAME="MediaAP"
 
 # WiFi dongle ID.
-# Should be setted up if SETUP_WIFI=yes
+# if not setted up - WiFi settings will be ignored
 WLAN_DEVICE="wlan0"
 
 # Access point or Client settings for WiFi adapter
@@ -18,23 +13,18 @@ WLAN_DEVICE="wlan0"
 # With set as Client you can add new credentials by a command:
 # sudo wpa_passphrase "your ssid" "your pass to ssid" >> /etc/wpa_supplicant/wpa_supplicant.conf
 # 1 - AP; 2 - Client;
-# Should be setted up if SETUP_WIFI=yes
 WIFI_TYPE=1
 
-# Should be setted up if SETUP_WIFI=yes
+# Should be setted up if WIFI_TYPE=1
 AP_NAME="${PC_NAME}-network"
 
-# Should be setted up if SETUP_DLNA_SERVER=yes
+# minidlna
 UPNP_SERVER_NAME="${PC_NAME}-library"
 
+# number of setted up usb sticks. Will be mounted in /media/[usb1|usb2|usbN]
 USB_AUTOMOUNT_STICKS_NUM=2
 
-# Sound config (currently not workin)
-# 1 - alsa; 2 - pulseaudio
-SOUND_CONFIG=1
-
 # UPnP player.
-# 1 - upmpdcli; 2 - MediaPlayer; 3 - gmediarender-resurrect.
-# Should be setted up if SETUP_DLNA_PLAYER=yes
+# 0 - nothing; 1 - upmpdcli; 2 - MediaPlayer; 3 - gmediarender-resurrect.
 UPNP_PLAYER=1
 UPNP_PLAYER_NAME="${PC_NAME}-player"
