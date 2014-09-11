@@ -1,7 +1,5 @@
 #!/bin/bash
 
-. ./include/vars.sh
-
 function setupMediaServer {
     echo "$(tput setaf 5)[+] Setup mediaserver... $(tput sgr 0)"
 
@@ -24,5 +22,5 @@ function setupMediaServer {
     echo "$(tput setaf 6)[+] Link usb automounts to minidlna default folders... $(tput sgr 0)"
     ln -s /media /var/lib/minidlna/media
 
-    return ${RETOK}
+    return "0"
 }

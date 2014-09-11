@@ -1,6 +1,5 @@
 #!/bin/bash
 
-. ./include/vars.sh
 . ./include/lan_ap.sh
 . ./include/lan_cl.sh
 
@@ -15,8 +14,8 @@ function setupWiFi {
         return $?
         ;;
         *)
-        return ${RETERR}
+        return "1"
     esac
 
-    return ${RETERR}
+    return "1"
 }

@@ -1,8 +1,6 @@
 #!/bin/bash
 ##-------------------------------------
 
-. ./vars.sh
-
 function setupWiFiClient {
     echo "$(tput setaf 5)[+] Setup WiFi lan client... $(tput sgr 0)"
     echo "$(tput setaf 6)[+] Down wlan0 before configure card settings... $(tput sgr 0)"
@@ -14,5 +12,5 @@ function setupWiFiClient {
 
     echo "$(tput setaf 6)[+] All done up wlan0... $(tput sgr 0)"
     ifup wlan0
-    return ${RETOK}
+    return "0"
 }

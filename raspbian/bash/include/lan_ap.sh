@@ -1,7 +1,5 @@
 #!/bin/bash
 
-. ./vars.sh
-
 function setupWiFiAP {
     echo "$(tput setaf 5)[+] Setup Access Point... $(tput sgr 0)"
 
@@ -99,5 +97,5 @@ function setupWiFiAP {
     echo "$(tput setaf 6)[+] restore NAT settings on reboot... $(tput sgr 0)"
     echo "up iptables-restore < /etc/iptables.ipv4.nat" >> /etc/network/interfaces
 
-    return ${RETOK}
+    return "0"
 }

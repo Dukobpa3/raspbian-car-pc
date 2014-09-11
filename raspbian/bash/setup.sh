@@ -15,7 +15,6 @@ cd ${DIR}
 echo ${DIR}
 echo "$(pwd)"
 
-. ./include/vars.sh
 . ./mediaserver.sh
 . ./mediaplayer.sh
 
