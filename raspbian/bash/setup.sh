@@ -29,8 +29,8 @@ else
     echo "$(tput setaf 6)configure WiFi$(tput sgr 0)"
 
     if [ $(ifconfig 2>/dev/null | grep -c wlan0) -eq 0 ]; then
-        echo "$(tput setaf 1) Check your Wlan device name! $(tput sgr 0)"
-        echo "$(tput setaf 3) Your lan devices: $(ifconfig | cut -c1-10 | sort -u) $(tput sgr 0)"
+        echo "$(tput setaf 1)Check your Wlan device name! $(tput sgr 0)"
+        echo "$(tput setaf 3)Your lan devices: $(ifconfig | cut -c1-10 | sort -u) $(tput sgr 0)"
         exit 1
     fi
 
