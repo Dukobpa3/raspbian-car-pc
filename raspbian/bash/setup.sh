@@ -34,8 +34,13 @@ function checkVariables {
 
 
     echo "Check UPnP server settings"
-    #TODO check all filled
-    #TODO check currently installed versions of soft and settings
+    if [ ${UPNP_SERVER} > 0 ]; then
+        echo "configure UPnP server"
+        #TODO check all filled
+        #TODO check currently installed versions of soft and settings
+    else
+        echo "don't configure UPnP server"
+    fi
 
     echo "Check UPnP player settings"
     if [ ${UPNP_PLAYER} > 0 ]; then
@@ -53,6 +58,7 @@ function checkCurrentState {
 
     return 0
 }
+
 checkVariables
 if [ $? == 1 ]; then
     echo "$(tput setaf 1)Error in your config file $(tput sgr 0)"
@@ -60,21 +66,27 @@ if [ $? == 1 ]; then
 fi
 
 checkCurrentState
-echo "Current state is: " $?
+if [ $? == 1 ]; then
+    echo "$(tput setaf 1)Error in your current pc state $(tput sgr 0)"
+    exit 1
+fi
+
 
 ## All is ok. Start setup
 if [ ${WLAN_DEVICE} != "" ]; then
     echo "$(tput setaf 6)Import lan config... $(tput sgr 0)"
     . ./lan.sh
-    setupWiFi ${WIFI_TYPE}
+    setupWiFi ${WIFI_TYPE} ${WLAN_DEVICE} ${AP_NAME}
     echo "$(tput setaf 6)setupWiFi result is: $(tput sgr 0)" $?
 fi
 
 
-echo "$(tput setaf 6)Import mediaserver config... $(pwd) $(tput sgr 0)"
-. ./mediaserver.sh
-setupMediaServer
-echo "$(tput setaf 6)setupMediaServer result is: $(tput sgr 0)" $?
+if [ ${UPNP_SERVER} > 0 ]; then
+    echo "$(tput setaf 6)Import mediaserver config... $(pwd) $(tput sgr 0)"
+    . ./mediaserver.sh
+    setupMediaServer
+    echo "$(tput setaf 6)setupMediaServer result is: $(tput sgr 0)" $?
+fi
 
 
 if [ ${UPNP_PLAYER} > 0 ]; then
@@ -87,3 +99,5 @@ fi
 # TODO prompt rebooting if no - just exit
 echo "$(tput setaf 5)[+] Reboot system... $(tput sgr 0)"
 #sudo reboot
+
+exit 0

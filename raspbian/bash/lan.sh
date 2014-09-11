@@ -1,21 +1,26 @@
 #!/bin/bash
 
 function setupWiFiClient {
+    local DEVICE=$1
     echo "$(tput setaf 5)[+] Setup WiFi lan client... $(tput sgr 0)"
-    echo "$(tput setaf 6)[+] Down wlan0 before configure card settings... $(tput sgr 0)"
-    ifdown wlan0
+    echo "$(tput setaf 6)[+] Down ${DEVICE} before configure card settings... $(tput sgr 0)"
+    ifdown ${DEVICE}
 
     #TODO do backup /etc/network/interfaces
     echo "$(tput setaf 6)[+] Setting up your lan cards -> /etc/network/interfaces ... $(tput sgr 0)"
     echo "$(tput setaf 1)[+] Replacing config by version from repo!!! $(tput sgr 0)"
     cat ./etc/network/interfaces.ap > /etc/network/interfaces
+    sed -i 's/wlan0/${DEVICE}/' /etc/network/interfaces
 
-    echo "$(tput setaf 6)[+] All done up wlan0... $(tput sgr 0)"
-    ifup wlan0
+    echo "$(tput setaf 6)[+] All done up ${DEVICE}... $(tput sgr 0)"
+    ifup ${DEVICE}
     return "0"
 }
 
 function setupWiFiAP {
+    local DEVICE=$1
+    local AP=$2
+
     echo "$(tput setaf 5)[+] Setup Access Point... $(tput sgr 0)"
 
     ##-------------------------------------
@@ -123,11 +128,11 @@ function setupWiFiAP {
 function setupWiFi {
     case $1 in
         1)
-        setupWiFiAP
+        setupWiFiAP $2 $3
         return $?
         ;;
         2)
-        setupWiFiClient
+        setupWiFiClient $2
         return $?
         ;;
         *)
