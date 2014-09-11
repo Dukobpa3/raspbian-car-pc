@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #$(tput setaf 1) - Red - Warning
-#$(tput setaf 2) - Green - ??
+#$(tput setaf 2) - Green - Prompt
 #$(tput setaf 3) - Yellow - Important info
 #$(tput setaf 4) - Blue - ??
 #$(tput setaf 5) - Magenta - ??
@@ -20,30 +20,31 @@ echo "$(pwd)"
 . ./mediaserver.sh
 . ./mediaplayer.sh
 
-## WiFi type settings
-
 while true; do
-    read -p "Are you want to configure wifi as AP?(yes/no) " WIFI_TYPE
+    read -p "$(tput setaf 2)Are you want to configure wifi as AP?(yes/no): $(tput sgr 0)" WIFI_TYPE
     case ${WIFI_TYPE} in
         [Yy]* )
-            echo "Setting up as AP";
+            echo "$(tput setaf 7)Setting up as AP $(tput sgr 0)";
             WIFI_TYPE="1"
             break;;
         [Nn]* )
-            echo "Setting up as client";
+            echo "$(tput setaf 7)Setting up as client $(tput sgr 0)";
             WIFI_TYPE=2
             break;;
         * )
-            echo "You are should input y/n, yes/no";
+            echo "$(tput setaf 1)You are should input y/n, yes/no $(tput sgr 0)";
             break;;
     esac
 done
 
 setupWiFi ${WIFI_TYPE}
-echo "setupWiFi result is: " $?
+echo "$(tput setaf 7)setupWiFi result is: $(tput sgr 0)" $?
 
-#setupMediaServer
-#setupMediaPlayer
+setupMediaServer
+echo "$(tput setaf 7)setupMediaServer result is: $(tput sgr 0)" $?
+
+setupMediaPlayer
+echo "$(tput setaf 7)setupMediaPlayer result is: $(tput sgr 0)" $?
 
 echo "$(tput setaf 6)[+] Reboot system... $(tput sgr 0)"
 sudo reboot
