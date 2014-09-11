@@ -46,10 +46,5 @@ echo "$(tput setaf 6)setupMediaServer result is: $(tput sgr 0)" $?
 setupMediaPlayer
 echo "$(tput setaf 6)setupMediaPlayer result is: $(tput sgr 0)" $?
 
-<<<<<<< HEAD
-echo "$(tput setaf 6)[+] Reboot system... $(tput sgr 0)"
-#sudo reboot
-=======
 echo "$(tput setaf 5)[+] Reboot system... $(tput sgr 0)"
-sudo reboot
->>>>>>> e50992d24012496a4c020ac457647a19dfab2373
+#sudo reboot
