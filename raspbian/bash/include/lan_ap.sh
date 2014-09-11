@@ -21,9 +21,10 @@ function setupWiFiAP {
     read AP_NAME
     echo "$(tput setaf 3)[+] Default connects num is 10 $(tput sgr 0)"
 
+    #TODO check replace if update
+    #TODO check sed "option domain-name"
     echo "$(tput setaf 6)[+] add our AP settings -> /etc/dhcp/dhcpd.conf $(tput sgr 0)"
     echo "
-    /etc/dhcp/dhcpd.conf ## add subnet settings after last line
     subnet 192.168.10.0 netmask 255.255.255.0 {
      range 192.168.10.10 192.168.10.20;
      option broadcast-address 192.168.10.255;
@@ -36,7 +37,7 @@ function setupWiFiAP {
 
 
     echo "$(tput setaf 6)[+] set AP interface -> /etc/default/isc-dhcp-server $(tput sgr 0)"
-    sed -i 's|#INTERFACES="""|"INTERFACES="wlan0"|' /etc/default/isc-dhcp-server
+    sed -i 's|#INTERFACES=""|INTERFACES="wlan0"|' /etc/default/isc-dhcp-server
 
     echo "$(tput setaf 6)[+] set path to default config -> /etc/default/hostapd $(tput sgr 0)"
     sed -i 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|' /etc/default/hostapd
@@ -59,6 +60,7 @@ function setupWiFiAP {
     ##-------------------------------------
     ## Configuring HostAPD
     ## get from this repo kuz don't have default
+    #TODO set ssid
     echo "$(tput setaf 6)[+] Configuring HostAPD -> /etc/hostapd/hostapd.conf ... $(tput sgr 0)"
     echo "$(tput setaf 1)[+] Replacing config by version from repo!!! $(tput sgr 0)"
     cat ./etc/hostapd/hostapd.conf > /etc/hostapd/hostapd.conf

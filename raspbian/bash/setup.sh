@@ -16,10 +16,11 @@ echo ${DIR}
 echo "$(pwd)"
 
 . ./include/vars.sh
-. ./lan.sh
 . ./mediaserver.sh
 . ./mediaplayer.sh
 
+#TODO check module wlan0 is present. Skip lan settings if not.
+. ./lan.sh
 while true; do
     read -p "$(tput setaf 2)Are you want to configure wifi as AP?(yes/no): $(tput sgr 0)" WIFI_TYPE
     case ${WIFI_TYPE} in
