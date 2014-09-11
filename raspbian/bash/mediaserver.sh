@@ -1,20 +1,28 @@
 #!/bin/bash
 
-##-------------------------------------
-echo "$(tput setaf 7)[+] Configure automount usb sticks... $(tput sgr 0)"
-echo "$(tput setaf 7)[+] Install soft... $(tput sgr 0)"
-apt-get install -y ntfs-3g usbmount
+. ./include/vars.sh
 
-echo "$(tput setaf 7)[+] Add utf-8... $(tput sgr 0)"
-echo "$(tput setaf 1)[+] Replacing config by version from repo!!! $(tput sgr 0)"
-cat ./etc/usbmount/usbmount.conf > /etc/usbmount/usbmount.conf
+function setupMediaServer {
+    echo "$(tput setaf 6)[+] Setup mediaserver... $(tput sgr 0)"
 
-##-------------------------------------
-echo "$(tput setaf 7)[+] Install UPnP server... $(tput sgr 0)"
-apt-get instal minidlna
+    ##-------------------------------------
+    echo "$(tput setaf 7)[+] Configure automount usb sticks... $(tput sgr 0)"
+    echo "$(tput setaf 7)[+] Install soft... $(tput sgr 0)"
+    apt-get install -y ntfs-3g usbmount
 
-#TODO add config editing, or copy current
+    echo "$(tput setaf 7)[+] Add utf-8... $(tput sgr 0)"
+    echo "$(tput setaf 1)[+] Replacing config by version from repo!!! $(tput sgr 0)"
+    cat ./etc/usbmount/usbmount.conf > /etc/usbmount/usbmount.conf
 
-##-------------------------------------
-echo "$(tput setaf 7)[+] Link usb automounts to minidlna default folders... $(tput sgr 0)"
-ln -s /media /var/lib/minidlna/media
+    ##-------------------------------------
+    echo "$(tput setaf 7)[+] Install UPnP server... $(tput sgr 0)"
+    apt-get instal -y minidlna
+
+    #TODO add config editing, or copy current
+
+    ##-------------------------------------
+    echo "$(tput setaf 7)[+] Link usb automounts to minidlna default folders... $(tput sgr 0)"
+    ln -s /media /var/lib/minidlna/media
+
+    return ${RETOK}
+}

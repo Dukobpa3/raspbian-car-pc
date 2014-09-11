@@ -1,5 +1,13 @@
 #!/bin/bash
 
-apt-get install -y mpd
+. ./vars.sh
 
-# clone
+setupMediaPlayer() {
+    echo "$(tput setaf 6)[+] Setup mediaplayer... $(tput sgr 0)"
+    apt-get install -y mpd
+
+    # clone
+
+    return ${RETOK}
+
+}

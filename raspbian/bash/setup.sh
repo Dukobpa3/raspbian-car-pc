@@ -9,65 +9,38 @@
 #$(tput setaf 7) - White - Info
 
 
-# Absolute path to this script
 SCRIPT=$(readlink -f "$0")
-# Absolute path this script is in
-SCRIPTPATH=$(dirname "$SCRIPT")
+DIR=$(dirname "$SCRIPT")
+cd "${DIR}"
 
-DIRNAME="$( dirname "$0" )"
-cd "${DIRNAME}"
+. ./include/vars.sh
+. ./lan.sh
+. ./mediaserver.sh
+. ./mediaplayer.sh
 
-declare RETOK = 0
-declare RETERR = 1
-declare WIFI_TYPE
+## WiFi type settings
 
-setupWiFiAP() {
-    echo "$(tput setaf 6)[+] Setup Access Point... $(tput sgr 0)"
-    source ${DIRNAME}/lan_ap.sh
-    return ${RETOK}
-}
-
-setupWiFiClient() {
-    echo "$(tput setaf 6)[+] Setup WiFi lan client... $(tput sgr 0)"
-    source ${DIRNAME}/lan_cl.sh
-    return ${RETOK}
-}
-
-setupWiFi() {
-    echo "Are you want to configure wifi as AP - 1; as client - 2: "
-    input WIFI_TYPE
+while true; do
+    read -p "Are you want to configure wifi as AP?(yes/no) " WIFI_TYPE
     case ${WIFI_TYPE} in
-        1)
-        setupWiFiAP
-        return $?
-        ;;
-        2)
-        setupWiFiClient
-        return $?
-        ;;
-        *)
-        echo "You should enter 1 or 2"
-        setupWiFi
-        return $?
+        [Yy]* )
+            echo "Setting up as AP";
+            WIFI_TYPE="1"
+            break;;
+        [Nn]* )
+            echo "Setting up as client";
+            WIFI_TYPE=2
+            break;;
+        * )
+            echo "You are should input y/n, yes/no";
+            break;;
     esac
-    return ${RETERR};
-}
+done
 
-setupMediaServer() {
-    echo "$(tput setaf 6)[+] Setup mediaserver... $(tput sgr 0)"
-    source ${DIRNAME}/mediaserver.sh
-}
+setupWiFi ${WIFI_TYPE}
 
-
-setupMediaPlayer() {
-    echo "$(tput setaf 6)[+] Setup mediaplayer... $(tput sgr 0)"
-    source ${DIRNAME}/mediaplayer.sh
-}
-
-setupWiFi
 setupMediaServer
 setupMediaPlayer
-
 
 echo "$(tput setaf 6)[+] Reboot system... $(tput sgr 0)"
 sudo reboot
