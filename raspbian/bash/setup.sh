@@ -80,4 +80,5 @@ if asksure; then
     reboot
 fi
 
+echo "$(tput setaf 5)[+] Have a nice day! :) $(tput sgr 0)"
 exit 0
