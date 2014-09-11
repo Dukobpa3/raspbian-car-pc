@@ -62,9 +62,22 @@ else
     echo "$(tput setaf 6)don't configure UPnP player$(tput sgr 0)"
 fi
 
+asksure() {
+    echo -n "$(tput setaf 5)[+] Reboot system... (Y/N)? $(tput sgr 0)"
+    while read -r -n 1 -s answer; do
+        if [[ ${answer} = [YyNn] ]]; then
+            [[ ${answer} = [Yy] ]] && retval=0
+            [[ ${answer} = [Nn] ]] && retval=1
+            break
+        fi
+    done
 
-# TODO prompt rebooting if no - just exit
-echo "$(tput setaf 5)[+] Reboot system... $(tput sgr 0)"
-#sudo reboot
+    return ${retval}
+}
+
+if asksure; then
+    echo "$(tput setaf 5)[+] Rebooting... $(tput sgr 0)"
+    reboot
+fi
 
 exit 0
