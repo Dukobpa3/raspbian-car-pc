@@ -22,7 +22,9 @@ echo "$(tput setaf 6)Import config settings... $(tput sgr 0)"
 
 
 echo "$(tput setaf 5)Check WiFi settings $(tput sgr 0)"
-if [ ${WLAN_DEVICE} != "" ]; then
+if [ -z ${WLAN_DEVICE} ]; then
+    echo "$(tput setaf 6)don't configure WiFi$(tput sgr 0)"
+else
     echo "$(tput setaf 6)configure WiFi$(tput sgr 0)"
     #TODO check all filled
     #TODO check wifi dongle name
@@ -31,13 +33,11 @@ if [ ${WLAN_DEVICE} != "" ]; then
     . ./lan.sh
     setupWiFi ${WIFI_TYPE} ${WLAN_DEVICE} ${AP_NAME}
     echo "$(tput setaf 6)setupWiFi result is: $(tput sgr 0)" $?
-else
-    echo "$(tput setaf 6)don't configure WiFi$(tput sgr 0)"
 fi
 
 
 echo "$(tput setaf 5)Check UPnP server settings$(tput sgr 0)"
-if [ ${UPNP_SERVER} > "0" ]; then
+if [ ${UPNP_SERVER} -gt 0 ]; then
     echo "$(tput setaf 6)configure UPnP server$(tput sgr 0)"
     #TODO check all filled
     #TODO check currently installed versions of soft and settings
@@ -50,7 +50,7 @@ else
 fi
 
 echo "$(tput setaf 5)Check UPnP player settings$(tput sgr 0)"
-if [ ${UPNP_PLAYER} > "0" ]; then
+if [ ${UPNP_PLAYER} -gt 0 ]; then
     echo "$(tput setaf 6)configure UPnP player$(tput sgr 0)"
     #TODO check all filled
     #TODO check currently installed versions of soft and settings
