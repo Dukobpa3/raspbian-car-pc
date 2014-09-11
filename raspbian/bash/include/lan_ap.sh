@@ -11,10 +11,10 @@ function setupWiFiAP {
 
     echo "$(tput setaf 6)[+] Configure dhcp -> /etc/dhcp/dhcpd.conf... $(tput sgr 0)"
     ## comment domain names
-    sed -i 's/option domain-name/#option domain-name/' /etc/dhcp/dhcpd.conf
-    sed -i 's/option domain-name-servers/#option domain-name-servers/' /etc/dhcp/dhcpd.conf
+    sed -i 's|option domain-name|#option domain-name|' /etc/dhcp/dhcpd.conf
+    sed -i 's|option domain-name-servers|#option domain-name-servers|' /etc/dhcp/dhcpd.conf
     ## uncomment autority option
-    sed -i 's/#authoritative/authoritative/' /etc/dhcp/dhcpd.conf
+    sed -i 's|#authoritative|authoritative|' /etc/dhcp/dhcpd.conf
 
 
     echo "$(tput setaf 2)Input AP name: $(tput sgr 0)"
@@ -36,10 +36,10 @@ function setupWiFiAP {
 
 
     echo "$(tput setaf 6)[+] set AP interface -> /etc/default/isc-dhcp-server $(tput sgr 0)"
-    sed -i 's/#INTERFACES=""/INTERFACES="wlan0"/' /etc/default/isc-dhcp-server
+    sed -i 's|#INTERFACES="""|"INTERFACES="wlan0"|' /etc/default/isc-dhcp-server
 
     echo "$(tput setaf 6)[+] set path to default config -> /etc/default/hostapd $(tput sgr 0)"
-    sed -i 's/#DAEMON_CONF=""/DAEMON_CONF="/etc/hostapd/hostapd.conf"/' /etc/default/hostapd
+    sed -i 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|' /etc/default/hostapd
 
 
     echo "$(tput setaf 6)[+] Down wlan0 before configure card settings... $(tput sgr 0)"
