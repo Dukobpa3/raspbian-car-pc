@@ -47,4 +47,4 @@ setupMediaPlayer
 echo "$(tput setaf 7)setupMediaPlayer result is: $(tput sgr 0)" $?
 
 echo "$(tput setaf 6)[+] Reboot system... $(tput sgr 0)"
-sudo reboot
+#sudo reboot
