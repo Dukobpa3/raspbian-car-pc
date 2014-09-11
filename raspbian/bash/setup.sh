@@ -21,24 +21,27 @@ echo "$(tput setaf 6)Import config settings... $(tput sgr 0)"
 . ./VARIABLES.sh
 
 function checkVariables {
-    #TODO check all filled
-    #TODO check wifi dongle name
-    #TODO check currently installed versions of soft and settings
 
     echo "Check WiFi settings"
     if [ ${WLAN_DEVICE} != "" ]; then
         echo "configure WiFi"
+        #TODO check all filled
+        #TODO check wifi dongle name
+        #TODO check currently installed versions of soft and settings
     else
         echo "don't configure WiFi"
     fi
 
 
     echo "Check UPnP server settings"
-    # TODO setup mediaserver settings
+    #TODO check all filled
+    #TODO check currently installed versions of soft and settings
 
     echo "Check UPnP player settings"
     if [ ${UPNP_PLAYER} > 0 ]; then
         echo "configure UPnP player"
+        #TODO check all filled
+        #TODO check currently installed versions of soft and settings
     else
         echo "don't configure UPnP player"
     fi

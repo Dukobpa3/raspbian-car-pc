@@ -7,5 +7,4 @@ function setupMediaPlayer {
     # clone
 
     return 0
-
 }

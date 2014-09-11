@@ -36,7 +36,7 @@ function setupWiFiAP {
     echo "$(tput setaf 3)[+] Default connects num is 10 $(tput sgr 0)"
 
     #TODO check replace if update
-    #TODO check sed "option domain-name"
+    #TODO check sed "option domain-name"; was on top
     echo "$(tput setaf 6)[+] add our AP settings -> /etc/dhcp/dhcpd.conf $(tput sgr 0)"
     echo "
     subnet 192.168.10.0 netmask 255.255.255.0 {
