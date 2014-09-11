@@ -98,10 +98,14 @@ function setupUPnPPlayer {
     fi
 }
 
+setupLan
+checkFail $?
 
-checkFail $(setupLan)
-checkFail $(setupUPnPServer)
-checkFail $(setupUPnPPlayer)
+setupUPnPServer
+checkFail $?
+
+setupUPnPPlayer
+checkFail $?
 
 if asksure "Reboot system..." ; then
     echo "$(tput setaf 5)[+] Rebooting... $(tput sgr 0)"
