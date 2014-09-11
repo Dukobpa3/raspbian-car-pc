@@ -11,7 +11,9 @@
 
 SCRIPT=$(readlink -f "$0")
 DIR=$(dirname "$SCRIPT")
-cd "${DIR}"
+cd ${DIR}
+echo ${DIR}
+echo "$(pvd)"
 
 . ./include/vars.sh
 . ./lan.sh

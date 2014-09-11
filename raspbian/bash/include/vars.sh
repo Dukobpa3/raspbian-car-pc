@@ -1,4 +1,4 @@
 #!/bin/bash
 
-declare RETOK = 0
-declare RETERR = 1
+declare RETOK="0"
+declare RETERR="1"
