@@ -9,6 +9,7 @@
 #$(tput setaf 5) - Magenta - Header
 #$(tput setaf 6) - Cyan - Info
 #$(tput setaf 7) - White - ??
+#$(tput sgr 0) - clean format
 
 ## Start
 SCRIPT=$(readlink -f "$0")
@@ -26,9 +27,13 @@ if [ -z ${WLAN_DEVICE} ]; then
     echo "$(tput setaf 6)don't configure WiFi$(tput sgr 0)"
 else
     echo "$(tput setaf 6)configure WiFi$(tput sgr 0)"
-    #TODO check all filled
-    #TODO check wifi dongle name
-    #TODO check currently installed versions of soft and settings
+
+    if [ $(ifconfig 2>/dev/null | grep -c wlan0) -eq 0 ]; then
+        echo "$(tput setaf 1) Check your Wlan device name! $(tput sgr 0)"
+        echo -n "$(tput setaf 3) Your lan devices: $(ifconfig | cut -c1-10 | sort -u) $(tput sgr 0)"
+        exit 1
+    fi
+
     echo "$(tput setaf 6)Import lan config... $(tput sgr 0)"
     . ./lan.sh
     setupWiFi ${WIFI_TYPE} ${WLAN_DEVICE} ${AP_NAME}
@@ -37,20 +42,22 @@ fi
 
 
 echo "$(tput setaf 5)Check UPnP server settings$(tput sgr 0)"
-if [ ${UPNP_SERVER} -gt 0 ]; then
+if [ -z ${UPNP_SERVER} ]; then
+    echo "$(tput setaf 6)don't configure UPnP server$(tput sgr 0)"
+else
     echo "$(tput setaf 6)configure UPnP server$(tput sgr 0)"
     #TODO check all filled
     #TODO check currently installed versions of soft and settings
     echo "$(tput setaf 6)Import mediaplayer config... $(pwd) $(tput sgr 0)"
-    . ./mediaplayer.sh
-    setupMediaPlayer
+    . ./mediaserver.sh
+    setupMediaServer
     echo "$(tput setaf 6)setupMediaPlayer result is: $(tput sgr 0)" $?
-else
-    echo "$(tput setaf 6)don't configure UPnP server$(tput sgr 0)"
 fi
 
 echo "$(tput setaf 5)Check UPnP player settings$(tput sgr 0)"
-if [ ${UPNP_PLAYER} -gt 0 ]; then
+if [ -z ${UPNP_PLAYER} ]; then
+    echo "$(tput setaf 6)don't configure UPnP player$(tput sgr 0)"
+else
     echo "$(tput setaf 6)configure UPnP player$(tput sgr 0)"
     #TODO check all filled
     #TODO check currently installed versions of soft and settings
@@ -58,8 +65,6 @@ if [ ${UPNP_PLAYER} -gt 0 ]; then
     . ./mediaplayer.sh
     setupMediaPlayer
     echo "$(tput setaf 6)setupMediaPlayer result is: $(tput sgr 0)" $?
-else
-    echo "$(tput setaf 6)don't configure UPnP player$(tput sgr 0)"
 fi
 
 asksure() {
