@@ -18,7 +18,9 @@ WIFI_TYPE=1
 # Should be setted up if WIFI_TYPE=1
 AP_NAME="${PC_NAME}-network"
 
-# minidlna
+# minidlna name
+# 0 - nothing; 1 - minidlna
+UPNP_SERVER=1
 UPNP_SERVER_NAME="${PC_NAME}-library"
 
 # number of setted up usb sticks. Will be mounted in /media/[usb1|usb2|usbN]
