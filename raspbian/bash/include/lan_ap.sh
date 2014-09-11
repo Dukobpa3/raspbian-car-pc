@@ -17,7 +17,7 @@ function setupWiFiAP {
     sed -i 's/#authoritative/authoritative/' /etc/dhcp/dhcpd.conf
 
 
-    echo "Input AP name:"
+    echo "$(tput setaf 2)Input AP name: $(tput sgr 0)"
     read AP_NAME
     echo "$(tput setaf 3)[+] Default connects num is 10 $(tput sgr 0)"
 
