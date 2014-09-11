@@ -17,16 +17,18 @@ WIFI_TYPE=1
 
 # Should be setted up if WIFI_TYPE=1
 AP_NAME="${PC_NAME}-network"
+INET_DEVICE="eth0 ppp0"
 
 # minidlna name
-# 0 - nothing; 1 - minidlna
-UPNP_SERVER=1
+# 0 - ""; 1 - minidlna
+UPNP_SERVER=minidlna
 UPNP_SERVER_NAME="${PC_NAME}-library"
 
 # number of setted up usb sticks. Will be mounted in /media/[usb1|usb2|usbN]
+# if 0 - then will not be configure
 USB_AUTOMOUNT_STICKS_NUM=2
 
 # UPnP player.
-# 0 - nothing; 1 - upmpdcli; 2 - MediaPlayer; 3 - gmediarender-resurrect.
-UPNP_PLAYER=1
+# 0 - ""; 1 - upmpdcli; 2 - MediaPlayer; 3 - gmediarender-resurrect.
+UPNP_PLAYER=upmpdcli
 UPNP_PLAYER_NAME="${PC_NAME}-player"
