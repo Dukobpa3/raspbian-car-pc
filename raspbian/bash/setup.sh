@@ -63,7 +63,7 @@ else
 fi
 
 asksure() {
-    echo -n "$(tput setaf 5)[+] Reboot system... (Y/N)? $(tput sgr 0)"
+    echo "$(tput setaf 5)[+] Reboot system... (Y/N)? $(tput sgr 0)"
     while read -r -n 1 -s answer; do
         if [[ ${answer} = [YyNn] ]]; then
             [[ ${answer} = [Yy] ]] && retval=0
@@ -81,5 +81,4 @@ if asksure; then
 fi
 
 echo "$(tput setaf 5)[+] Have a nice day! :) $(tput sgr 0)"
-echo ""
 exit 0
