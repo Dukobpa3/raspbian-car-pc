@@ -16,7 +16,6 @@ DIR=$(dirname "$SCRIPT")
 cd ${DIR}
 echo "$(tput setaf 6)Currently run in: $(pwd) $(tput sgr 0)"
 
-
 ## Set configuration
 echo "$(tput setaf 6)Import config settings... $(tput sgr 0)"
 . ./VARIABLES.sh
@@ -27,7 +26,7 @@ function checkVariables {
     #TODO check currently installed versions of soft and settings
 
     echo "Check WiFi settings"
-    if [ ${SETUP_WIFI} ]; then
+    if [ ${WLAN_DEVICE} != "" ]; then
         echo "configure WiFi"
     else
         echo "don't configure WiFi"
@@ -35,15 +34,10 @@ function checkVariables {
 
 
     echo "Check UPnP server settings"
-    if [ ${SETUP_DLNA_SERVER} ]; then
-        echo "configure UPnP server"
-    else
-        echo "don't configure UPnP server"
-    fi
-
+    # TODO setup mediaserver settings
 
     echo "Check UPnP player settings"
-    if [ ${SETUP_DLNA_PLAYER} ]; then
+    if [ ${UPNP_PLAYER} > 0 ]; then
         echo "configure UPnP player"
     else
         echo "don't configure UPnP player"
@@ -66,23 +60,26 @@ checkCurrentState
 echo "Current state is: " $?
 
 ## All is ok. Start setup
-echo "$(tput setaf 6)Import lan config... $(tput sgr 0)"
-. ./lan.sh
+if [ ${WLAN_DEVICE} != "" ]; then
+    echo "$(tput setaf 6)Import lan config... $(tput sgr 0)"
+    . ./lan.sh
+    setupWiFi ${WIFI_TYPE}
+    echo "$(tput setaf 6)setupWiFi result is: $(tput sgr 0)" $?
+fi
+
+
 echo "$(tput setaf 6)Import mediaserver config... $(pwd) $(tput sgr 0)"
 . ./mediaserver.sh
-echo "$(tput setaf 6)Import mediaplayer config... $(pwd) $(tput sgr 0)"
-. ./mediaplayer.sh
-
-
-#TODO read checker by modules setup
-setupWiFi ${WIFI_TYPE}
-echo "$(tput setaf 6)setupWiFi result is: $(tput sgr 0)" $?
-
 setupMediaServer
 echo "$(tput setaf 6)setupMediaServer result is: $(tput sgr 0)" $?
 
-setupMediaPlayer
-echo "$(tput setaf 6)setupMediaPlayer result is: $(tput sgr 0)" $?
+
+if [ ${UPNP_PLAYER} > 0 ]; then
+    echo "$(tput setaf 6)Import mediaplayer config... $(pwd) $(tput sgr 0)"
+    . ./mediaplayer.sh
+    setupMediaPlayer
+    echo "$(tput setaf 6)setupMediaPlayer result is: $(tput sgr 0)" $?
+fi
 
 # TODO prompt rebooting if no - just exit
 echo "$(tput setaf 5)[+] Reboot system... $(tput sgr 0)"
