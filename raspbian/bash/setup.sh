@@ -81,4 +81,5 @@ if asksure; then
 fi
 
 echo "$(tput setaf 5)[+] Have a nice day! :) $(tput sgr 0)"
+echo ""
 exit 0
