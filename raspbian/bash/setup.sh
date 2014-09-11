@@ -13,7 +13,7 @@ SCRIPT=$(readlink -f "$0")
 DIR=$(dirname "$SCRIPT")
 cd ${DIR}
 echo ${DIR}
-echo "$(pvd)"
+echo "$(pwd)"
 
 . ./include/vars.sh
 . ./lan.sh
@@ -40,9 +40,10 @@ while true; do
 done
 
 setupWiFi ${WIFI_TYPE}
+echo "setupWiFi result is: " $?
 
-setupMediaServer
-setupMediaPlayer
+#setupMediaServer
+#setupMediaPlayer
 
 echo "$(tput setaf 6)[+] Reboot system... $(tput sgr 0)"
 sudo reboot

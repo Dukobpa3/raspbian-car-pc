@@ -7,11 +7,11 @@
 function setupWiFi {
     case $1 in
         1)
-        setupWiFiAP
+        #setupWiFiAP
         return $?
         ;;
         2)
-        setupWiFiClient
+        #setupWiFiClient
         return $?
         ;;
         *)
