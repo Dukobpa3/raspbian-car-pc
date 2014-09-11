@@ -8,6 +8,8 @@ function setupMediaServer {
     echo "$(tput setaf 6)[+] Install soft... $(tput sgr 0)"
     apt-get install -y ntfs-3g usbmount
 
+    #TODO do backup /etc/usbmount/usbmount.conf
+    #TODO prompt usb_sticks num
     echo "$(tput setaf 6)[+] Add utf-8... $(tput sgr 0)"
     echo "$(tput setaf 1)[+] Replacing config by version from repo!!! $(tput sgr 0)"
     cat ./etc/usbmount/usbmount.conf > /etc/usbmount/usbmount.conf
@@ -22,5 +24,5 @@ function setupMediaServer {
     echo "$(tput setaf 6)[+] Link usb automounts to minidlna default folders... $(tput sgr 0)"
     ln -s /media /var/lib/minidlna/media
 
-    return "0"
+    return 0
 }
