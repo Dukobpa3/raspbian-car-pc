@@ -17,7 +17,7 @@ WIFI_TYPE=1
 
 # Should be setted up if WIFI_TYPE=1
 AP_NAME="${PC_NAME}-network"
-INET_DEVICE="eth0 ppp0"
+INET_DEVICE="eth0"
 
 # minidlna name
 # 0 - ""; 1 - minidlna

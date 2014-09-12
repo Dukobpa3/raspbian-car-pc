@@ -73,11 +73,10 @@ function setupUPnPServer {
         echo "$(tput setaf 6)don't configure UPnP server$(tput sgr 0)"
     else
         echo "$(tput setaf 6)configure UPnP server$(tput sgr 0)"
-        #TODO check all filled
         #TODO check currently installed versions of soft and settings
         echo "$(tput setaf 6)Import mediaplayer config... $(pwd) $(tput sgr 0)"
         . ./mediaserver.sh
-        setupMediaServer
+        setupMediaServer ${USB_AUTOMOUNT_STICKS_NUM}
         echo "$(tput setaf 6)setupMediaPlayer result is: $(tput sgr 0)" $?
     fi
 
